@@ -1,28 +1,60 @@
+from cProfile import label
+from cgitb import text
+import sys
+import subprocess
 from tkinter import *
 from time import strftime
 from turtle import back
 
-background = Tk()
-background.geometry("800x480")
-background.config(background="grey")
-#background.attributes('-fullscreen', True)
+# --- functions --- #
 
 def open_calender():
-    exec(open("calendar.py").read())
-
-calender_button = Button(background, text=("Calender"), font=("BloomSpeak Body", 50), width=10, command=open_calender)
-calender_button.pack(anchor="w")
+    subprocess.Popen(['Python', 'calendar.py'])
+    sys.exit(0)
 
 def open_weather():
-    exec(open("weather.py").read())
+    subprocess.Popen(['Python', 'weather.py'])
+    sys.exit(0)
 
-weather_button = Button(background, text=("Weather"), font=("BloomSpeak Body", 50), width=10, command=open_weather)
-weather_button.pack(anchor="w")
+def go_back():
+    subprocess.Popen(['Python', 'interface.py'])
+    sys.exit(0)
 
-def open_interface():
-    exec(open("interface.py").read())
+def live_time():
+    time = strftime('%H:%M')
+    clock.config(text=time)
+    clock.after(1000, live_time)
 
-back_button = Button(background, text=("Go back"), font=("BloomSpeak Body", 50), width=10, command=open_interface)
-back_button.pack(anchor="w")
+# -------------------------------------------------------------------------------------------------------------- #
+# --- background interface --- #
 
-mainloop()
+settings = Tk()
+settings.geometry("800x480")
+settings.config(background="grey")
+#settings.attributes('-fullscreen', True)
+
+# -------------------------------------------------------------------------------------------------------------- #
+# --- setting buttons --- #
+
+calendarButton = Button(settings, text=("Calender"), font=("BloomSpeak Body", 33), width=10, command=open_calender, justify="left")
+calendarButton.place(anchor="nw")
+
+weatherButton = Button(settings, text=("Weather"), font=("BloomSpeak Body", 33), width=10, command=open_weather)
+weatherButton.place(x=265, anchor="nw")
+
+backButton = Button(settings, text=("Go back"), font=("BloomSpeak Body", 33), width=10, command=go_back)
+backButton.place(x=530, anchor="nw")
+
+# -------------------------------------------------------------------------------------------------------------- #
+# --- clock --- #
+
+clock = Label(settings, font=("BloomSpeak Body", 140), background="grey", foreground="white")
+clock.place(x=200, y=150, anchor="nw")
+live_time()
+
+# -------------------------------------------------------------------------------------------------------------- #
+
+weatherDiscription = Label(settings, text=live_time, background="grey", foreground="white", font=("BloomSpeak Body", 25))
+weatherDiscription.place(x=200, y=350, anchor="nw")
+
+settings.mainloop()
