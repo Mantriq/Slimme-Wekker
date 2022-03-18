@@ -54,7 +54,4 @@ live_time()
 
 # -------------------------------------------------------------------------------------------------------------- #
 
-weatherDiscription = Label(settings, text=live_time, background="grey", foreground="white", font=("BloomSpeak Body", 25))
-weatherDiscription.place(x=200, y=350, anchor="nw")
-
 settings.mainloop()

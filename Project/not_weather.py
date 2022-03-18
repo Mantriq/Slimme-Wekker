@@ -8,8 +8,10 @@ def delete():
     answer.delete(0, 'end')
 
 def submit():
+    city__weather = open("City_Weather.txt", 'w')
     city = answer.get()
-    return city
+    city__weather.write(city)
+    city__weather.close()
 
 def go_back():
     subprocess.Popen(['Python', 'settings.py'])
