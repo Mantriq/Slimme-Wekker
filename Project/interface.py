@@ -1,10 +1,9 @@
-from email.mime import image
+import requests
 import sys
 import subprocess
 from tkinter import *
 from time import strftime
 from os.path import exists
-import requests
 
 # --- functions --- #
 
@@ -38,18 +37,18 @@ def live_weather_icon():
             icon = "Weather_Icons/Thunderstorm_Icon.png"
         else:
             icon = "Weather_Icons/Blank_Icon.png"
-
-        return icon
+        
+        icon_weather.config(file=icon)
+        image_weather.after(1000, live_weather_icon)
 
 
 def live_weather_temp():
     if (exists("City_Weather.txt") == True):
         city_weather = open("City_Weather.txt", 'r')
         city = city_weather.read()
-        user_input = city
         city_weather.close()
 
-        weather_data = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={user_input}&units=metric&APPID=9e0cc0262cd61c5a77a4cdaaf5fb209e")
+        weather_data = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&APPID=9e0cc0262cd61c5a77a4cdaaf5fb209e")
 
         temperature = weather_data.json()['main']['temp']
         temperature = int(temperature)
@@ -59,7 +58,6 @@ def live_weather_temp():
 
     temp_weather.config(text=temperature)
     temp_weather.after(1000, live_weather_temp)
-    image_weather.after(1000, live_weather_icon)
 
 def live_time():
     time = strftime('%H:%M')
@@ -84,10 +82,10 @@ settings_button.place(anchor="nw")
 # -------------------------------------------------------------------------------------------------------------- #
 # --- weather --- #
 
-icon = live_weather_icon()
-icon_weather = PhotoImage(file=icon)
+icon_weather = PhotoImage()
 image_weather = Label(interface, image=icon_weather, borderwidth=0)
 image_weather.place(anchor="nw", x=590)
+live_weather_icon()
 
 temp_weather = Label(interface, font=("BloomSpeak Body", 40), background="grey", foreground="white")
 temp_weather.place(anchor="nw", x=710, y=30)

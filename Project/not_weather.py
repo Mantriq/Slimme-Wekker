@@ -12,6 +12,7 @@ def submit():
     city = answer.get()
     city__weather.write(city)
     city__weather.close()
+    submitButton.after(0, delete)
 
 def go_back():
     subprocess.Popen(['Python', 'settings.py'])

@@ -13,6 +13,7 @@ def submit():
     time_latest = latest_answer.get()
     print("before " + time_before)
     print("latest " + time_latest)
+    submitButton.after(0, delete)
 
 def go_back():
     subprocess.Popen(['Python', 'settings.py'])
