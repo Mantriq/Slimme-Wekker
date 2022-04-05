@@ -1,9 +1,14 @@
+from tracemalloc import start
+import winsound
 import requests
 import sys
 import subprocess
 from tkinter import *
 from time import strftime
 from os.path import exists
+from multiprocessing import Process, Queue
+from playsound import playsound
+import pygame.mixer
 
 # --- functions --- #
 
@@ -12,8 +17,8 @@ def open_settings():
     sys.exit(0)
 
 def live_weather_icon():
-    if (exists("City_Weather.txt") == True):
-        city_weather = open("City_Weather.txt", 'r')
+    if (exists("textDocs/City_Weather.txt") == True):
+        city_weather = open("textDocs/City_Weather.txt", 'r')
         city = city_weather.read()
         user_input = city
         city_weather.close()
@@ -43,8 +48,8 @@ def live_weather_icon():
 
 
 def live_weather_temp():
-    if (exists("City_Weather.txt") == True):
-        city_weather = open("City_Weather.txt", 'r')
+    if (exists("textDocs/City_Weather.txt") == True):
+        city_weather = open("textDocs/City_Weather.txt", 'r')
         city = city_weather.read()
         city_weather.close()
 
@@ -63,6 +68,37 @@ def live_time():
     time = strftime('%H:%M')
     clock.config(text=time)
     clock.after(1000, live_time)
+
+def alarm():
+    if (exists("Alarm/music.txt") == True):
+        musicFile = open("Alarm/music.txt", 'r')
+        music = musicFile.read()
+        musicFile.close()
+
+    pygame.mixer.init()
+    pygame.mixer.music.load("Alarm/Programma_Alarm_morning_alarm.mp3")
+    pygame.mixer.music.play(-1)
+
+def startAlarm():
+    alarm_time = '11:16:30'
+    alarm_hours = alarm_time[0:2]
+    alarm_minutes = alarm_time[3:5]
+    alarm_sec = alarm_time[6:9]
+
+    current_hour = strftime('%H')
+    current_min = strftime('%M')
+    current_sec = strftime('%S')
+
+    alarmButton.after(1000, startAlarm)
+
+    if alarm_hours == current_hour:
+        if alarm_minutes == current_min:
+            if alarm_sec == current_sec:
+                   
+                alarm()
+
+def stopAlarm():
+    pygame.mixer.music.stop()
 
 # -------------------------------------------------------------------------------------------------------------- #
 # --- background interface --- #
@@ -97,6 +133,13 @@ live_weather_temp()
 clock = Label(interface, font=("BloomSpeak Body", 180), background="grey", foreground="white")
 clock.place(anchor="nw", x=100, y=100)
 live_time()
+
+# -------------------------------------------------------------------------------------------------------------- #
+# --- Alarm button --- #
+
+alarmButton = Button(interface, text=("Stop"), font=("BloomSpeak Body", 33), width=10, command=stopAlarm)
+alarmButton.place(anchor="nw", y=391)
+startAlarm()
 
 # -------------------------------------------------------------------------------------------------------------- #
 

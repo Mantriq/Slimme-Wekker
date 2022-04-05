@@ -21,8 +21,8 @@ def go_back():
     sys.exit(0)
 
 def weather_type():
-    if (exists("City_Weather.txt") == True):
-        city_weather = open("City_Weather.txt", 'r')
+    if (exists("textDocs/City_Weather.txt") == True):
+        city_weather = open("textDocs/City_Weather.txt", 'r')
         city = city_weather.read()
         city_weather.close()
 
@@ -35,8 +35,8 @@ def weather_type():
     return weather
 
 def weather_temperature():
-    if (exists("City_Weather.txt") == True):
-        city_weather = open("City_Weather.txt", 'r')
+    if (exists("textDocs/City_Weather.txt") == True):
+        city_weather = open("textDocs/City_Weather.txt", 'r')
         city = city_weather.read()
         city_weather.close()
 
@@ -97,8 +97,8 @@ def live_details():
     else:
         weather = "N/A"
 
-    if (exists("City_Weather.txt") == True):
-        city_weather = open("City_Weather.txt", 'r')
+    if (exists("textDocs/City_Weather.txt") == True):
+        city_weather = open("textDocs/City_Weather.txt", 'r')
         city = city_weather.read()
         city_weather.close()
     else:

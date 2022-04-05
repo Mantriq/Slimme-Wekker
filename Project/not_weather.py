@@ -8,7 +8,7 @@ def delete():
     answer.delete(0, 'end')
 
 def submit():
-    city__weather = open("City_Weather.txt", 'w')
+    city__weather = open("textDocs/City_Weather.txt", 'w')
     city = answer.get()
     city__weather.write(city)
     city__weather.close()
