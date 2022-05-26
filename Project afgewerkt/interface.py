@@ -16,6 +16,7 @@ def open_settings():
     interface.destroy()
     subprocess.call(["python", "/home/slimmewekker/Documenten/Project/settings.py"])
 
+# --- icoontje geven afhankelijk van het weer --- interface.py --- #
 def live_weather_icon():
     if (exists("/home/slimmewekker/Documenten/Project/textDocs/City_Weather.txt") == True):
         city_weather = open("/home/slimmewekker/Documenten/Project/textDocs/City_Weather.txt", 'r')
@@ -42,11 +43,13 @@ def live_weather_icon():
             icon = "/home/slimmewekker/Documenten/Project/Weather_Icons/Thunderstorm_Icon.png"
         else:
             icon = "/home/slimmewekker/Documenten/Project/Weather_Icons/Blank_Icon.png"
+    else:
+            icon = "/home/slimmewekker/Documenten/Project/Weather_Icons/Blank_Icon.png"
         
-        icon_weather.config(file=icon)
-        image_weather.after(1000, live_weather_icon)
+    icon_weather.config(file=icon)
+    image_weather.after(1000, live_weather_icon)
 
-
+# --- temperatuur geven dat het op de locatie is --- interface.py --- #
 def live_weather_temp():
     if (exists("/home/slimmewekker/Documenten/Project/textDocs/City_Weather.txt") == True):
         city_weather = open("/home/slimmewekker/Documenten/Project/textDocs/City_Weather.txt", 'r')
@@ -69,6 +72,7 @@ def live_time():
     clock.config(text=time)
     clock.after(1000, live_time)
 
+# --- alarm geluid --- #
 def alarm():
     if (exists("/home/slimmewekker/Documenten/Project/textDocs/music.txt") == True):
         musicFile = open("/home/slimmewekker/Documenten/Project/textDocs/music.txt", 'r')
@@ -93,8 +97,7 @@ def alarm():
 
         time = open("/home/slimmewekker/Documenten/Project/textDocs/alarmtime.txt", "w")
         time.write(alarm_time)
-        time.close()
-        
+        time.close()    
     elif (exists("/home/slimmewekker/Documenten/Project/textDocs/youtube.txt") == True):
         musicFile = open("/home/slimmewekker/Documenten/Project/textDocs/youtube.txt", 'r')
         music = musicFile.read()
@@ -119,6 +122,7 @@ def alarm():
         time.write(alarm_time)
         time.close()
 
+# --- ziet wanneer alarm moet af gaan --- interface.py --- #
 def startAlarm():
     time = open("/home/slimmewekker/Documenten/Project/textDocs/alarmtime.txt", "r")
     alarm_time = time.read()
@@ -138,11 +142,13 @@ def startAlarm():
             alarmSnoozeButton.place(anchor="nw", y=413, x=400)
             alarm()
 
+# --- stopt het alarm --- #
 def stopAlarm():
     alarmStartButton.place_forget()
     alarmSnoozeButton.place_forget()
     pygame.mixer.music.stop()
 
+# --- stopt het alarm en laat het 5 minuten later terug afgaan --- #
 def snoozeAlarm():
     time = open("/home/slimmewekker/Documenten/Project/textDocs/alarmtime.txt", "r")
     alarm_time = time.read()

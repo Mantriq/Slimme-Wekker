@@ -54,7 +54,8 @@ def submit_calendarId():
         Id.write(CalendarId)
         Id.close()
     submitCalendarIdButton.after(0, delete_calendarId)
-    
+
+# --- hulp website voor kalender ID en nieuwe token krijgen --- not_calendar.py --- #    
 def calendarId():
     webbrowser.get('firefox').open('https://www.sociablekit.com/get-find-google-calendar-id/')
 
@@ -82,7 +83,7 @@ def submit_all():
         Id.close()
     submitAllButton.after(0, delete_all)
 
-
+# --- check of het ingevuld is en ga terug --- not_calendar.py --- #
 def go_back():
     if (exists('/home/slimmewekker/Documenten/Project/textDocs/times.txt') == True):
         times = open('/home/slimmewekker/Documenten/Project/textDocs/times.txt', 'r')

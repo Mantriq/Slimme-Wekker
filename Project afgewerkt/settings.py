@@ -74,6 +74,7 @@ def live_weather_icon():
         
     icon_weather.config(file=icon)
     image_weather.after(1000, live_weather_icon)
+    image_weather.after(1000, weather_type)
 
 
 def live_weather_temp():
@@ -85,7 +86,9 @@ def live_weather_temp():
 
     temp_weather.config(text=temperature)
     temp_weather.after(1000, live_weather_temp)
+    temp_weather.after(1000, weather_temperature)
 
+# --- gedetailleerd weerbericht --- settings.py --- #
 def live_details():
     weather = weather_type()
     if (weather == 'Clear'):
